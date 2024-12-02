@@ -1,0 +1,135 @@
+1. Introduction
+The Hotel Management System is a Python-based application designed to manage various aspects of hotel operations.
+ The system aims to handle customer bookings, room availability, restaurant services, payment processing, and customer records.
+ The code structure involves a simple menu-driven interface for interacting with the system, and it maintains the data for various operations in memory.
+
+2. System Features
+   The system is designed with the following features:
+  •Booking: Customers can book rooms by providing their personal details and choosing the room type.
+  •Rooms Information: Users can view available room types and their rates.
+  •Restaurant Services: Customers can order from a menu, and the charges are added to their total bill.
+  •Payment: Customers can pay for their stay and restaurant services.
+  •Customer Records: A list of all customers with their booking details and payment status.
+
+3. Code Breakdown
+   The system consists of several functions, each handling different aspects of hotel management.
+   Here's an overview of the code section and the corresponding functionality:
+
+3.1 Global List Declaration
+    customers = []
+    • Purpose: This list stores all customer objects who make bookings.
+
+3.2 Customer Class
+    class Customer:
+    def __init__(self, name, phone, address, checkin, checkout, room_type, room_no, cust_id, days, price, rc, payment_done):
+        self.name = name
+        self.phone = phone
+        self.address = address
+        self.checkin = checkin
+        self.checkout = checkout
+        self.room_type = room_type
+        self.room_no = room_no
+        self.cust_id = cust_id
+        self.days = days
+        self.price = price
+        self.restaurant_charges = rc
+        self.payment_done = payment_done 
+
+       •Purpose: This class is used to create customer objects and store their booking information, including: 
+
+    1.Personal details (name, phone, address)
+    2.Booking details (check-in, check-out)
+    3.Room details (room type, room number)
+    4.Charges (price, restaurant charges)
+    5.Payment status.
+
+3.3 Home Function
+    def home():
+    print("\n\t\t\tWELCOME TO HOTEL CITY INN\n")
+    print("\t1. Booking")
+    print("\t2. Rooms Info")
+    print("\t3. Room Service (Menu Card)")
+    print("\t4. Payment")
+    print("\t5. Record")
+    print("\t0. Exit")
+
+  •Purpose: This function serves as the main menu, allowing users to choose different operations: 
+
+        i)Booking a room
+	ii)Viewing room details
+	iii)Ordering from the menu (room service)
+	iv)Payment processing
+	v)Viewing customer records
+	vi)Exiting the program
+
+3.4 Rooms Information Function
+    def rooms_info():
+    print("\n\t\tROOMS INFO\n")
+    print("1. Standard Non-AC - Taka 3500 per day")
+    print("2. Standard AC - Taka 4000 per day")
+    print("3. 2-Bed Non-AC - Taka 4500 per day")
+    print("4. 2-Bed AC - Taka 5000 per day\n")
+
+    •Purpose: This function displays the different room types available along with their pricing.
+
+3.5 Booking Function
+    def booking():
+    print("\n\t\tROOM BOOKING\n")
+    name = input("Name: ").strip()
+    phone = input("Phone No.: ").strip()
+    address = input("Address: ").strip()
+    checkin = input("Check-In Date (DD/MM/YYYY): ").strip()
+    checkout = input("Check-Out Date (DD/MM/YYYY): ").strip()
+
+   • Purpose: This function allows a customer to book a room by providing personal and booking details: 
+
+   1.It validates the check-in and check-out dates.
+   2.Based on user input, the system assigns a room number and calculates the total price.
+
+3.6 Restaurant Function
+    def restaurant():
+    cust_id = int(input("\nEnter Customer ID: "))
+    customer = next((c for c in customers if c.cust_id == cust_id), None)
+    
+    print("\n\t\tMENU CARD\n")
+    menu = {
+        1: ("Panta Bhat & Ilish Fry", 250),
+        2: ("Chicken Curry", 150),
+        3: ("Beef Rezala", 200),
+        4: ("Vegetable Khichuri", 120),
+        5: ("Shutki Bharta", 100),
+        6: ("Paratha & Egg Curry", 80),
+        7: ("Biryani (Chicken)", 180),
+        8: ("Biryani (Beef)", 200),
+        9: ("Chingri Malai Curry", 300),
+        10: ("Mishti Doi", 50),
+    }
+   •Purpose: This function allows customers to order food from the menu. The total charges for the food are added to their restaurant bill.
+
+3.7 Payment Function
+    def payment():
+    cust_id = int(input("\nEnter Customer ID: "))
+    customer = next((c for c in customers if c.cust_id == cust_id), None)
+    
+    if customer.payment_done:
+        print("Payment already completed!")
+    else:
+        total_amount = customer.price + customer.restaurant_charges
+        print(f"\nTotal Amount: Taka {total_amount}")
+        print("1. Credit/Debit Card\n2. UPI\n3. Cash")
+
+    •Purpose: This function processes customer payments: 
+     i)It checks if payment has already been made.
+     ii)If not, it displays the total amount due and allows customers to choose a payment method.
+
+3.8 Record Function
+    def record():
+    print("\n\t\tCUSTOMER RECORDS\n")
+    for customer in customers:
+        print(f"Name: {customer.name}, Phone: {customer.phone}, Room No: {customer.room_no}, Total Payment: {'Paid' if customer.payment_done else 'Pending'}")
+   • Purpose: This function displays a list of all customers, including their booking details and payment status.
+
+5. Conclusion
+   This Hotel Management System provides a basic structure for managing hotel operations.
+    By expanding the system's functionalities, it can be developed into a comprehensive and fully functional tool suitable for real-world applications.
+
